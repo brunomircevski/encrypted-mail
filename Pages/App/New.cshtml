@@ -1,0 +1,59 @@
+﻿@page
+@model NewMessageModel
+@{
+    ViewData["Title"] = "New message";
+}
+@section Scripts
+{
+    <script> const replyTo = @Model.replyTo; </script>
+    <script src="../js/new.js"></script>
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        @if(Model.replyTo != 0) { 
+            <h2>Reply</h2>  
+        } else { 
+            <h2>New message</h2>
+        }
+        <form id="server-form" method="post">
+            <input type="hidden" asp-for="message.title" class="message-title">
+            <input type="hidden" asp-for="message.text" class="message-text">
+            <input type="hidden" asp-for="message.recipient.username" class="message-recipient-username">
+            <input type="hidden" asp-for="message.senderKey" class="message-senderKey">
+            <input type="hidden" asp-for="message.recipientKey" class="message-recipientKey">
+            <input type="hidden" asp-for="message.replyToId" class="message-replyTo">
+            <input type="hidden" asp-for="addToContacts" class="message-addToContacts">
+        </form>
+        <form id="client-form" class="mt-3">
+            <div class="form-group mt-3">
+                <label for="recipient">Recipient</label>
+                <input id="recipient" class="form-control input-dark" minlength=5 maxlength=32 required value="@Model.username">
+                <small class="form-text text-muted">Username of recipient.</small>
+            </div>
+            <div class="form-group mt-3">
+                <label for="title">Title</label>
+                <input id="title" class="form-control input-dark" maxlength=200 required>
+                <small class="form-text text-muted">Title of this message. (end-to-end encrypted)</small>
+            </div>
+            <div class="form-group mt-3">
+                <label for="text">Message</label>
+                <textarea class="form-control input-dark" id="text" rows="10"></textarea>
+                <small class="form-text text-muted">Full message. (end-to-end encrypted)</small>
+            </div>
+            @if(Model.username is null && Model.replyTo == 0) {
+            <div class="form-group mt-3">
+                <label class="form-check-label text-light">
+                    <input type="checkbox" id="contactsCheckbox">
+                    Save in Contacts
+                </label>
+            </div>
+            }
+            <button type="submit" class="btn btn-primary mt-3">Send message</button>
+        </form>
+        <div class="text-danger mt-3 error-msg"></div>
+        @if(Model.error) { 
+        <div class="text-danger mt-3 error-msg">An error occurred while sending the message.</div>
+        }
+    </div>
+</div>

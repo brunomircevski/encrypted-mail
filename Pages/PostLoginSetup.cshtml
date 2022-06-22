@@ -1,0 +1,27 @@
+﻿@page
+@model PostLoginSetupModel
+@{
+    ViewData["Title"] = "Setup";
+}
+@section Scripts
+{
+    <script>
+        const password = localStorage.getItem("passwordTmp");
+        const secret = $("#secret").val();
+        const public = $("#public").val();
+        localStorage.clear();
+
+        if(password && secret) {
+            localStorage.setItem("secret", CryptoJS.enc.Utf8.stringify(CryptoJS.AES.decrypt(secret, password)));
+            localStorage.setItem("public", public);
+            window.location.href = "/App/Mailbox";
+        } else {
+            window.location.href = "/Logout";
+        }
+    </script>
+}
+
+<h1 class="text-light">Please wait</h1>
+<h5 class="text-light">If this takes more than a few secodns then something went wrong :(</h2>
+<input type="hidden" id="secret" value="@Model.secret">
+<input type="hidden" id="public" value="@Model.publicKey">

@@ -1,0 +1,26 @@
+﻿@page
+@model ContactsModel
+@{
+    ViewData["Title"] = "Contacts";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <h2>Contacts</h2>
+        @if(!Model.contacts.Any()) {<span class="text-muted">You don't have any saved contacts.</span>}
+        <table class="table text-light">
+            <tbody>
+                @foreach (var c in Model.contacts)
+                {
+                    <tr>
+                        <td scope="row" class="align-middle">@c.username</td>
+                        <td class="text-end">
+                            <a asp-page="Contacts" asp-route-username="@c.username" class="btn btn-danger">Remove</a>
+                            <a asp-page="New" asp-route-username="@c.username" class="btn btn-primary">Message</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

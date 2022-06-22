@@ -1,0 +1,32 @@
+html {
+  font-size: 14px;
+}
+body {
+    /* Pattern from: https://www.toptal.com/designers/subtlepatterns/tactile-noise/ */
+    background-image: url("../img/tactile_noise.png");
+}
+.bg-dark {
+    background-color: #303030 !important;
+}
+.input-dark {
+    background-color: #333;
+    color: white;
+    outline: none;
+    border: 1px solid #999;
+}
+.mail-list article {
+    transition: .3s;
+}
+.mail-list article:hover {
+    background-color: #252525;
+    transform: translate(5px, 0);
+}
+.mail-list article p {
+    color: #eee;
+    max-height: 25px;
+}
+@media (min-width: 576px) { 
+    .text-justify {
+        text-align: justify;
+    }
+ }

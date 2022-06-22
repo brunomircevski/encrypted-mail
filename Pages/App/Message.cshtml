@@ -1,0 +1,45 @@
+﻿@page
+@model MessageModel
+@{
+    ViewData["Title"] = "Message";
+}
+@section Scripts
+{   
+    <script>
+        const messageId = @Model.id;
+    </script>
+    <script src="../js/message.js"></script>
+}
+
+<div class="row justify-content-center">
+    <div class="col-xl-11">
+        <div class="row">
+            <div class="col-4"><h2>Message</h2></div>
+            <div class="col-8 text-end">
+                <a href="/App/Mailbox" class="btn btn-dark">Go back</a>
+                <button class="btn btn-danger" id="delete-btn" data-bs-toggle="modal" data-bs-target="#delete-modal">Delete</button>
+                <a asp-page="/App/New" asp-route-replyTo="@Model.id" class="btn btn-primary">Reply</a>
+            </div>
+        </div>
+        <hr>
+        <article class="row mt-3 message-box"></article>
+    </div>
+</div>
+
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm action</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        When you delete a message it's gone forever for sender and recipient.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="/App/Message?action=delete&id=@Model.id" class="btn btn-danger">Delete forever</a>
+      </div>
+    </div>
+  </div>
+</div>
